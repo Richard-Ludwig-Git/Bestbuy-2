@@ -53,7 +53,10 @@ class Product:
     def buy(self, quantity):
         """handle quantity and total price if product is bougth"""
         try:
-            self.quantity -= int(quantity)
-            return self.price * int(quantity)
+            if self.quantity < int(quantity):
+                raise Exception("Quantity to high, not enough in Stock")
+            else:
+                self.quantity -= int(quantity)
+                return self.price * int(quantity)
         except ValueError:
             return "Sorry, wrong Value"
