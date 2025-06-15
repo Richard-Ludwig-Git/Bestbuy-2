@@ -2,7 +2,9 @@ import product, store
 
 product_list = [ product.Product("MacBook Air M2", price=1450, quantity=100),
                  product.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-                 product.Product("Google Pixel 7", price=500, quantity=250)
+                 product.Product("Google Pixel 7", price=500, quantity=250),
+                 product.NonStockedProduct("Windows License", price=125),
+                 product.LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
                ]
 best_buy = store.Store(product_list)
 
@@ -29,9 +31,13 @@ def make_order():
     while ordering:
         userproduct_choice = input("Which product # do you want? ")
         userproduct_quantity = input("What amount do you want? ")
-        if userproduct_quantity == "" and userproduct_quantity == "":
+        if userproduct_quantity == "" and userproduct_choice == "":
             ordering = False
             break
+        if userproduct_choice == "4":
+            total_payment += best_buy.in_store[int(userproduct_choice) - 1].buy(int(userproduct_quantity))
+            print("Product added to Cart")
+            continue
         if int(userproduct_quantity) > best_buy.in_store[int(userproduct_choice)-1].get_quantity():
             print(f"Sorry there are only {best_buy.in_store[int(userproduct_choice)-1].get_quantity()} in Stock left")
             continue

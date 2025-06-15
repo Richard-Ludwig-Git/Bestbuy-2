@@ -60,3 +60,56 @@ class Product:
                 return self.price * int(quantity)
         except ValueError:
             return "Sorry, wrong Value"
+
+
+class NonStockedProduct(Product):
+    def __init__(self, name, price):
+        """construction parameter validation and initialisation"""
+        super().__init__(name, price)
+        self.quantity = 0
+        self.active = True
+
+
+    def set_quantity(self, quantity):
+        def set_quantity(self, quantity):
+            """setter of the quantity of the product and activ change if 0"""
+            self.quantity = quantity
+
+
+    def show(self):
+        """simple print of name, price and quantity of the product"""
+        print(f"{self.name}, Price: {self.price}")
+
+
+    def buy(self, quantity):
+        """handle quantity and total price if product is bougth"""
+        try:
+            return self.price * int(quantity)
+        except ValueError:
+            return "Sorry, wrong Value"
+
+
+class LimitedProduct(Product):
+    def __init__(self, name, price, quantity, maximum=1):
+        """construction parameter validation and initialisation"""
+        super().__init__(name, price, quantity)
+        self.active = True
+        self.maximum = 1
+
+
+    def show(self):
+        """simple print of name, price and quantity of the product"""
+        print(f"{self.name}, Price: {self.price}, only applyed once")
+
+    def buy(self, quantity):
+        """handle quantity and total price if product is bougth"""
+        try:
+            if self.quantity < int(quantity):
+                raise Exception("Quantity to high, not enough in Stock")
+            elif int(quantity) > self.maximum:
+                raise Exception("Shipping only applys once")
+            else:
+                self.quantity -= 1
+                return self.price
+        except ValueError:
+            return "Sorry, wrong Value"
