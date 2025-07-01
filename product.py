@@ -71,9 +71,7 @@ class NonStockedProduct(Product):
 
 
     def set_quantity(self, quantity):
-        def set_quantity(self, quantity):
-            """setter of the quantity of the product and activ change if 0"""
-            self.quantity = quantity
+        pass
 
 
     def show(self):
